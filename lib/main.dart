@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_app_assignment/screens/splash_screen.dart';
-import 'package:task_manager_app_assignment/theme/theme_data.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'screens/splash_screen.dart';
+import 'services/note_storage_service.dart';
+import 'theme/theme_data.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NoteStorageService.init();
+  runApp(const NotesApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class NotesApp extends StatelessWidget {
+  const NotesApp({super.key});
+
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    theme: themeData(),
-    home: const SplashScreen(),
-  );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Notesy',
+      debugShowCheckedModeBanner: false,
+      theme: themeData(),
+      home: const SplashScreen(),
+    );
+  }
 }
